@@ -20,11 +20,10 @@ PSID$eduCat[PSID$education_degree==2]<-"High School"
 PSID$eduCat[PSID$education_degree==3]<-"College"
 table(PSID$eduCat, PSID$education_degree)
 #4. marital_status -> Factor "marriedCat"
-PSID$marriedCat<-factor(NA,levels=c("Married","Single", "Divorced","TBD"))
+PSID$marriedCat<-factor(NA,levels=c("Married","Single", "Divorced"))
 PSID$marriedCat[PSID$marital_status==1]<-"Married"
 PSID$marriedCat[PSID$marital_status==2]<-"Single"
 PSID$marriedCat[PSID$marital_status==3]<-"Divorced"
-PSID$marriedCat[PSID$marital_status==4]<-"TBD"
 table(PSID$marriedCat, PSID$marital_status)
 
 #RQ1a: Are race and marital status associated?
@@ -43,7 +42,7 @@ PSID %>%
   mutate(proportion=n/sum(n)) %>%
   ggplot(aes(x=raceCat,y=proportion,fill=marriedCat))+
   geom_col()+
-  scale_fill_manual(values=c('#F26076','#FF9760','#FFD150','#458B73'))+
+  scale_fill_manual(values=c('#FA6868','#FACE68','#5A9CB5'))+
   labs(
     title="Proportion of Marital Status by Race",
     x="Race",
