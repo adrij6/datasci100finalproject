@@ -38,3 +38,36 @@ RQ3_model <- lm(household_income ~ age, data = RQ3_data)
 
 summary(RQ3_model)
 confint(RQ3_model)
+
+# ---------------------------------------------------------------------
+# linear regression condition check
+# ---------------------------------------------------------------------
+
+# residuals and fitted values
+RQ3_residuals <- residuals(RQ3_model)
+RQ3_fitted <- fitted(RQ3_model)
+
+# checking linearity and constant variance
+ggplot(data.frame(RQ3_fitted, RQ3_residuals),
+       aes(x = RQ3_fitted, y = RQ3_residuals)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(
+    title = "Residuals vs Fitted Values",
+    x = "Fitted Values",
+    y = "Residuals"
+  ) +
+  theme_light()
+
+# checking normality of residuals
+ggplot(data.frame(RQ3_residuals), aes(sample = RQ3_residuals)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "Q-Q Plot of Residuals",
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles"
+  ) +
+  theme_light()
+
+
