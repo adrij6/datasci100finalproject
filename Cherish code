@@ -1,0 +1,22 @@
+#Lab Project
+
+psid <- read.csv("PSID-1.csv")
+names(psid)
+psid <- subset(psid, marital_status %in% c(1, 2, 3))
+
+#Convert to factor
+psid$marital_status <- factor(psid$marital_status,
+                              levels = c(1, 2, 3),
+                              labels = c("Married", "Single", "Divorced"))
+#ANOVA test
+anova_model <- aov(household_income ~ marital_status, data = psid)
+summary(anova_model)
+
+#Boxplot
+boxplot(household_income ~ marital_status,
+        data = psid,
+        main = "Household Income by Marital Status",
+        xlab = "Marital Status",
+        ylab = "Household Income")
+#Differences between groups
+TukeyHSD(anova_model)
